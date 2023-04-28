@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Mirror;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
     public float moveSpeed = 1f;
     public float collisionOffset = 0.05f;
@@ -31,8 +32,10 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate() {
 
+        if(isLocalPlayer){
+
         pointerInput = GetPointerInput();
-        print(pointerInput);
+        //print(pointerInput);
         weaponparent.PointerPosition = pointerInput;
 
 
@@ -68,6 +71,10 @@ public class PlayerController : MonoBehaviour
             scale.x = 1;
         }
         transform.localScale = scale;
+        
+        }
+
+
 
         
     }
@@ -103,4 +110,5 @@ public class PlayerController : MonoBehaviour
     void OnMove(InputValue movementValue){
         movementInput = movementValue.Get<Vector2>();
     }
+
 }
